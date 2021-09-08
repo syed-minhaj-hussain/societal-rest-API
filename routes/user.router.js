@@ -156,6 +156,7 @@ router.use("/:_id/follow", authVerify);
 router.route("/:_id/follow").post(async (req, res) => {
   const { _id } = req.params;
   const user = req.user;
+  // console.log({ _id, user });
   if (_id !== user._id) {
     try {
       const getCurrentUser = await User.findById(user._id);

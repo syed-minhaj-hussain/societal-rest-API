@@ -42,8 +42,19 @@ router
           expiresIn: "24h",
         }
       );
-      const { password, __v, updatedAt, createdAt, ...userDetails } =
-        findUser._doc;
+      const {
+        password,
+        __v,
+        updatedAt,
+        createdAt,
+        coverPicture,
+        email,
+        followers,
+        following,
+        description,
+        location,
+        ...userDetails
+      } = findUser._doc;
 
       // console.log(userDetails);
       const userId = findUser._id.toString();
@@ -51,6 +62,7 @@ router
         success: true,
         authToken,
         userId,
+        userDetails,
         message: "User Loggedin Successfully",
       });
     } catch (err) {
