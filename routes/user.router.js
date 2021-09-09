@@ -218,4 +218,42 @@ router.route("/:_id/unfollow").post(async (req, res) => {
   }
 });
 
+router.use("/search/:name", authVerify);
+router.route("/search/:name").get(async (req, res) => {
+  const { name } = req.params;
+  console.log({ name });
+  try {
+    const getAllUsers = await User.find({});
+
+    const getUsersByName = getAllUsers.filter((user) =>
+      user.name.toLowerCase().includes(name?.toLowerCase())
+    );
+    if (getUsersByName) {
+      const users = getUsersByName.map(
+        ({
+          _doc: {
+            password,
+            __v,
+            createdAt,
+            updatedAt,
+            followers,
+            following,
+            coverPicture,
+            location,
+            description,
+            email,
+            ...user
+          },
+        }) => user
+      );
+      res.status(201).json({ suucess: true, message: "User Found", users });
+    }
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Something Went Wrong,",
+    });
+  }
+});
+
 module.exports = { router };
