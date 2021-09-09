@@ -1,8 +1,5 @@
 const headers = (req, res, next) => {
-  const origin =
-    req.headers.origin == "http://localhost:3000"
-      ? "http://localhost:3000"
-      : "https://mywebsite.com";
+  const origin = req.headers.origin == "*";
   res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader(
     "Access-Control-Allow-Methods",
