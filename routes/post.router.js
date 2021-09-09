@@ -3,7 +3,6 @@ const router = express.Router();
 const cors = require("cors");
 
 const { authVerify } = require("../middlewares/authVerify");
-const { headers } = require("../middlewares/headers");
 const { Post } = require("../models/post.model");
 const { postValidation } = require("../validation");
 
@@ -102,7 +101,6 @@ router.route("/:postId/like").post(
     preflightContinue: false,
     optionsSuccessStatus: 204,
   }),
-  headers,
   async (req, res) => {
     const { id } = req.body;
     const { _id } = req.user;

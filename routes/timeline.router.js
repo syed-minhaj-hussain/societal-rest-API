@@ -7,29 +7,18 @@ const { User } = require("../models/user.model");
 const router = express.Router();
 
 router.use("/", authVerify);
-router.route("/").get(
-  cors({
-    origin: "*",
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    preflightContinue: false,
-    optionsSuccessStatus: 204,
-  }),
-  headers,
-  async (req, res) => {
-    try {
-      const allPosts = await Post.find({}).populate(
-        "user",
-        "name username profilePicture _id"
-      );
-      allPosts.reverse();
+router.route("/").get(async (req, res) => {
+  try {
+    const allPosts = await Post.find({}).populate(
+      "user",
+      "name username profilePicture _id"
+    );
+    allPosts.reverse();
 
-      res
-        .status(200)
-        .json({ success: true, message: "Getting Posts", allPosts });
-    } catch (err) {
-      res.status(404).json({ success: false, message: "posts not found" });
-    }
+    res.status(200).json({ success: true, message: "Getting Posts", allPosts });
+  } catch (err) {
+    res.status(404).json({ success: false, message: "posts not found" });
   }
-);
+});
 
 module.exports = { router };
