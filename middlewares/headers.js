@@ -1,5 +1,5 @@
 const headers = (req, res, next) => {
-  const origin = req.headers.origin == "*";
+  const origin = req.headers.origin == true;
   res.setHeader("Access-Control-Allow-Origin", origin);
   res.setHeader(
     "Access-Control-Allow-Methods",
